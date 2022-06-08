@@ -33,7 +33,7 @@ const getID = /(?:http(?:s|):\/\/|)(?:(?:www\.|)youtube(?:\-nocookie|)\.com\/(?:
 Module({
   pattern: 'song ?(.*)',
   fromMe: sourav,
-  desc: Lang.SONG_DESC
+  desc: Lang.yt_DESC
 }, (async (message, match) => {
   if (!match[1]) return message.sendReply(Lang.NEED_TEXT_SONG)
   var link = match[1].match(/\bhttps?:\/\/\S+/gi)
