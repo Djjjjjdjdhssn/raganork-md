@@ -33,7 +33,7 @@ const getID = /(?:http(?:s|):\/\/|)(?:(?:www\.|)youtube(?:\-nocookie|)\.com\/(?:
 Module({
   pattern: 'song ?(.*)',
   fromMe: sourav,
-  desc: Lang.SONG_DESC
+  desc: Lang.yt_DESC
 }, (async (message, match) => {
   if (!match[1]) return message.sendReply(Lang.NEED_TEXT_SONG)
   var link = match[1].match(/\bhttps?:\/\/\S+/gi)
@@ -54,14 +54,14 @@ Module({
         }
   var myid = message.client.user.id.split("@")[0].split(":")[0]
   let sr = await songSearch(match[1]);
-  sr = sr.results.songs;
+  sr = sr.results.yt;
   if (sr.length < 1) return await message.sendReply(Lang.NO_RESULT);
   var SongData = []
   for (var i in sr){
     SongData.push({
       title: sr[i].title,
       description: sr[i].artist,
-      rowId: "song;" + sr[i].id + ';' + myid
+      rowId: "yt;" + sr[i].id + ';' + myid
   })
   }
   const sections = [{
@@ -78,7 +78,7 @@ Module({
   await message.client.sendMessage(message.jid, listMessage)
 }));
 Module({
-  pattern: 'yts ?(.*)',
+  pattern: 'yt ?(.*)',
   fromMe: sourav,
   desc: "Select and download songs from yt (list)"
 }, (async (message, match) => {
@@ -97,7 +97,7 @@ Module({
   }
   const sections = [{
       title: "YouTube search resulrs",
-      rows: videos
+      rows: yt
   }]
   const listMessage = {
       text: "and " + (sr.length - 1) + " more results...",
